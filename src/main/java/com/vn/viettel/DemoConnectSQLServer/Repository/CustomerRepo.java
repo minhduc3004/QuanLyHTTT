@@ -14,4 +14,5 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
     Optional<Customer> findCustomerById(int id);
 
     Customer save(Customer customer);
+
 }
