@@ -47,6 +47,7 @@
                     <th scope="col">Diem tich luy</th>
                     <th scope="col">Trang thai</th>
                     <th scope="col">Mo ta</th>
+                    <th scope="col">Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,6 +62,11 @@
                         <td>${customer.score}</td>
                         <td>${customer.status}</td>
                         <td>${customer.description}</td>
+                        <td>
+                            <a href="#" class="btn btn-warning btn-sm">Sửa</a>
+                            <a href="#" class="btn btn-danger btn-sm">Xóa</a>
+
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
