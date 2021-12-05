@@ -13,10 +13,14 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
     Customer save(Customer customer);
 
+    Customer findCustomerById(int id);
+
     ArrayList<Customer> findCustomersByNameContains(String name);
 
     ArrayList<Customer> findCustomersByPhoneContains(String phone);
 
     ArrayList<Customer> findCustomersByNameContainsAndPhoneContains(String name, String phone);
 
+    @Override
+    void deleteById(Integer integer);
 }

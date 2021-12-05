@@ -58,4 +58,26 @@ public class CustomerController {
         redirectAttributes.addFlashAttribute("customers", customers);
         return redirectView;
     }
+
+    @GetMapping("/editCustomer")
+    public String editCustomerView(Model model, @ModelAttribute("id") int customerId){
+        Customer customerToEdit = customerRepo.findCustomerById(customerId);
+        model.addAttribute("customer", customerToEdit);
+        return "edit-customer";
+    }
+
+    @PostMapping("/editCustomer")
+    public RedirectView editCustomer(@ModelAttribute("customer") Customer customer){
+        final RedirectView redirectView = new RedirectView("/customers/viewCustomers", true);
+        customerRepo.save(customer);
+        return redirectView;
+    }
+
+    @PostMapping("/deleteCustomer")
+    public RedirectView deleteCustomer(Model model, @ModelAttribute("id") int customerId){
+        final RedirectView redirectView = new RedirectView("/customers/viewCustomers", true);
+        customerRepo.deleteById(customerId);
+        return redirectView;
+    }
+
 }
