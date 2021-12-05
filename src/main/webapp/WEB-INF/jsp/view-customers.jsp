@@ -6,21 +6,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
 </head>
 <body>
+<c:url var="search_customers_url" value="/customers/searchCustomers"/>
 <div class="container">
-    <form action="" method="GET" id="formSearchData">
+    <form action="${search_customers_url}" method="post" modelAttribute="customer" id="formSearchData">
         <div class="row d-flex align-items-end">
 
             <div class="col-12 col-md-2">
                 <label>Tên</label>
                 <div class="input-group">
-                    <input type="text"  class="form-control" name="name" placeholder="Tên" >
+                    <input type="text" path="name" class="form-control" name="name" placeholder="Tên" >
                 </div>
                 <!-- input-group -->
             </div>
             <div class="col-12 col-md-4">
                 <label>Phone</label>
                 <div class="input-group">
-                    <input type="text"  class="form-control" name="phone" placeholder="Phone" >
+                    <input type="text" path ="phone" class="form-control" name="phone" placeholder="Phone" >
                 </div>
                 <!-- input-group -->
             </div>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
@@ -22,7 +24,8 @@ public class CustomerController {
 
     @GetMapping("/viewCustomers")
     public String viewCustomers(Model model) {
-        model.addAttribute("customers", customerRepo.findAll());
+        ArrayList<Customer> customers = (ArrayList<Customer>) model.getAttribute("customers");
+        if(customers == null) model.addAttribute("customers", new ArrayList<Customer>());
         return "view-customers";
     }
 
@@ -38,6 +41,21 @@ public class CustomerController {
         Customer savedCustomer = customerRepo.save(customer);
         redirectAttributes.addFlashAttribute("savedCustomer", savedCustomer);
         redirectAttributes.addFlashAttribute("addCustomerSuccess", true);
+        return redirectView;
+    }
+
+    @PostMapping("/searchCustomers")
+    public RedirectView searchCustomers(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) {
+        final RedirectView redirectView = new RedirectView("/customers/viewCustomers", true);
+        String name = customer.getName();
+        String phone = customer.getPhone();
+        ArrayList<Customer> customers = new ArrayList<>();
+        if(name!=null && phone!=null){
+            customers = customerRepo.findCustomersByNameContainsAndPhoneContains(name, phone);
+        }
+        else if(name == null) customers = customerRepo.findCustomersByPhoneContains(phone);
+        else customers = customerRepo.findCustomersByNameContains(name);
+        redirectAttributes.addFlashAttribute("customers", customers);
         return redirectView;
     }
 }
